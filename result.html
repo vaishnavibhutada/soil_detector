@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        header {
+            background-color: #2c6b2f;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            background-image: url('https://images.unsplash.com/photo-1580713476951-2b0c30bc3d33');
+            background-size: cover;
+            background-position: center;
+        }
+        header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        header p {
+            font-size: 24px;
+            font-style: italic;
+        }
+        .container {
+            width: 70%;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: -50px;
+            z-index: 1;
+            text-align: center;
+        }
+        .result {
+            background-color: #e8f5e9;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        .result h3 {
+            font-size: 36px;
+            color: #2c6b2f;
+        }
+        .result p {
+            font-size: 20px;
+            color: #555;
+            margin: 10px 0;
+        }
+        img.uploaded-image {
+            margin-top: 20px;
+            max-width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .button-container a {
+            text-decoration: none;
+            padding: 12px 25px;
+            background-color: #2c6b2f;
+            color: white;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .button-container a:hover {
+            background-color: #245b27;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Soil Type Prediction</h1>
+        <p>Your Soil Image Result is Ready!</p>
+    </header>
+
+    <div class="container">
+        {% if result %}
+        <img src="{{ url_for('static', filename=image_filename) }}" alt="Uploaded Image" width="300">
+
+        
+        <div class="result">
+            <h3>Predicted Soil Type: {{ result }}</h3>
+            <p><strong>Confidence Level:</strong> {{ confidence|round(2) }}%</p>
+            
+            <div class="button-container">
+                <a href="/">Upload Another Image</a>
+            </div>
+        </div>
+        {% else %}
+        <div class="result">
+            <h3>No Prediction Available</h3>
+            <p>It seems there was an issue with the image you uploaded. Please try again with a valid soil image.</p>
+            <div class="button-container">
+                <a href="/">Go Back to Home Page</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
